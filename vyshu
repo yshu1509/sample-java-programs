@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    parameters{
+            choice(name:'VERSION' , choices: ['1.0', '1.1', '1.2'])
+            booleanParam(name: 'Run', defaultValue: true)
+    }
+    stages {
+        stage('Git Clone') {
+            steps {
+                git 'https://github.com/ramdevops03/Development-Team-Repo.git'
+            }
+        }
+        stage('Build Application Code') {
+            steps {
+                sh 'mvn clean -f pom.xml'
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'deploy the application code'
+            }
+        }
+     }
+  }
